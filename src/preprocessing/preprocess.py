@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 from typing import Any, Dict, Tuple
 from schema.data_schema import BinaryClassificationSchema
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import MinMaxScaler
 from feature_engine.encoding import OneHotEncoder
 from scipy.stats import zscore
 from joblib import dump, load
@@ -68,8 +68,6 @@ def encode(input_data: pd.DataFrame, schema: BinaryClassificationSchema, encoder
         input_data = encoder.transform(input_data)
         return input_data
 
-
-
     encoder = OneHotEncoder(top_categories=3)
     encoder.fit(input_data)
     input_data = encoder.transform(input_data)
@@ -93,10 +91,11 @@ def normalize(input_data: pd.DataFrame, schema: BinaryClassificationSchema, scal
         return input_data
     numeric_features = list(set(numeric_features).intersection(input_data.columns))
     if scaler is None:
-        scaler = StandardScaler()
+        scaler = MinMaxScaler()
         input_data[numeric_features] = scaler.fit_transform(input_data[numeric_features])
         dump(scaler, paths.SCALER_FILE)
     else:
+        print('hena')
         input_data[numeric_features] = scaler.transform(input_data[numeric_features])
     return input_data
 

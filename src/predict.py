@@ -63,6 +63,7 @@ def run_batch_predictions() -> None:
     pipeline = create_pipeline(data_schema)
     features = data_schema.features
     x_test = test_data[features]
+
     logger.info("Transforming the data...")
     x_test = run_testing_pipeline(x_test, data_schema, pipeline)
     logger.info("Making predictions...")
@@ -75,12 +76,14 @@ def run_batch_predictions() -> None:
         data_schema.id,
         return_probs=True,
     )
+    print(predictions_arr)
     logger.info("Saving predictions...")
     save_dataframe_as_csv(
         dataframe=predictions_df, file_path=paths.PREDICTIONS_FILE_PATH
     )
 
     logger.info("Batch predictions completed successfully")
+
 
 if __name__ == "__main__":
     run_batch_predictions()
