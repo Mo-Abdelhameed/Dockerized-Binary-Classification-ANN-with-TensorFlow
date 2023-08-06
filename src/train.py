@@ -36,6 +36,7 @@ def run_training(
         x_train = train_data[features]
         y_train = train_data[target]
         pipeline = create_pipeline(data_schema)
+        # x_train, y_train = handle_class_imbalance(x_train, y_train)
         for stage, column in pipeline:
             if column is None:
                 x_train = stage(x_train)

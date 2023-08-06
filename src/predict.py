@@ -80,6 +80,7 @@ def run_batch_predictions() -> None:
     save_dataframe_as_csv(
         dataframe=predictions_df, file_path=paths.PREDICTIONS_FILE_PATH
     )
+    print(predictions_arr)
 
     logger.info("Batch predictions completed successfully")
 
