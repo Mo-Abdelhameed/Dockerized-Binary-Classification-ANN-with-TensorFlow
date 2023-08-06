@@ -23,7 +23,7 @@ def create_pipeline(schema: BinaryClassificationSchema) -> List[Any]:
     for f in numeric_features:
         pipeline.append((impute_numeric, f))
         pipeline.append((remove_outliers_zscore, f))
-    # pipeline.append((normalize, 'schema'))
+    pipeline.append((normalize, 'schema'))
 
     for f in cat_features:
         pipeline.append((impute_categorical, f))
@@ -33,7 +33,6 @@ def create_pipeline(schema: BinaryClassificationSchema) -> List[Any]:
 
 
 def run_testing_pipeline(data: pd.DataFrame, data_schema: BinaryClassificationSchema, pipeline: List):
-    print(data['texture_mean'])
     for stage, column in pipeline:
         if column is None:
             data = stage(data)
@@ -41,11 +40,7 @@ def run_testing_pipeline(data: pd.DataFrame, data_schema: BinaryClassificationSc
             if stage.__name__ == 'normalize':
                 try:
                     scaler = load(paths.SCALER_FILE)
-                    print('Before Normalization')
-                    print(data['texture_mean'])
                     data = normalize(data, data_schema, scaler)
-                    print('After Normalization')
-                    print(data['texture_mean'])
                 except:
                     pass
             elif stage.__name__ == 'encode':
