@@ -52,8 +52,6 @@ def run_testing_pipeline(data: pd.DataFrame, data_schema: BinaryClassificationSc
                 continue
             else:
                 data = stage(data, column)
-    print('After pipeline')
-    print(data['texture_mean'])
     return data
 
 
