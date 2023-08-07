@@ -90,13 +90,14 @@ def normalize(input_data: pd.DataFrame, schema: BinaryClassificationSchema, scal
     numeric_features = schema.numeric_features
     if not numeric_features:
         return input_data
-    numeric_features = list(set(numeric_features).intersection(input_data.columns))
+    numeric_features = [f for f in numeric_features if f in input_data.columns]
     if scaler is None:
         scaler = MinMaxScaler()
-        input_data[numeric_features] = scaler.fit_transform(input_data[numeric_features])
+        # input_data[numeric_features] = scaler.fit_transform(input_data[numeric_features])
+        scaler.fit(input_data[numeric_features])
         dump(scaler, paths.SCALER_FILE)
-    else:
-        input_data[numeric_features] = scaler.transform(input_data[numeric_features])
+    # else:
+    input_data[numeric_features] = scaler.transform(input_data[numeric_features])
     return input_data
 
 
