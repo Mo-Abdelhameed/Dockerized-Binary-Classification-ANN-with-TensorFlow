@@ -24,8 +24,8 @@ def create_pipeline(schema: BinaryClassificationSchema) -> List[Any]:
     cat_features = schema.categorical_features
     for f in numeric_features:
         pipeline.append((impute_numeric, f))
-        pipeline.append((remove_outliers_zscore, f))
-    # pipeline.append((normalize, 'schema'))
+        # pipeline.append((remove_outliers_zscore, f))
+    pipeline.append((normalize, 'schema'))
 
     for f in cat_features:
         pipeline.append((impute_categorical, f))

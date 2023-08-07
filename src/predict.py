@@ -5,7 +5,7 @@ from config import paths
 from utils import read_csv_in_directory, save_dataframe_as_csv
 from logger import get_logger
 from ANN_Classifier import Classifier, predict_with_model
-from preprocessing.pipeline import create_pipeline, run_testing_pipeline
+from preprocessing.pipeline import create_pipeline, run_testing_pipeline, cast_data
 from schema.data_schema import load_saved_schema
 
 
@@ -80,7 +80,6 @@ def run_batch_predictions() -> None:
     save_dataframe_as_csv(
         dataframe=predictions_df, file_path=paths.PREDICTIONS_FILE_PATH
     )
-    print(predictions_arr)
 
     logger.info("Batch predictions completed successfully")
 

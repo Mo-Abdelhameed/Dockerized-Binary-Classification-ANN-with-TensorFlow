@@ -6,7 +6,7 @@ from config import paths
 from logger import get_logger, log_error
 from schema.data_schema import load_json_data_schema, save_schema
 from preprocessing.pipeline import create_pipeline
-from preprocessing.preprocess import handle_class_imbalance
+from preprocessing.preprocess import handle_class_imbalance, cast_data
 
 from utils import set_seeds, read_json_as_dict
 
@@ -36,7 +36,6 @@ def run_training(
         x_train = train_data[features]
         y_train = train_data[target]
         pipeline = create_pipeline(data_schema)
-        # x_train, y_train = handle_class_imbalance(x_train, y_train)
         for stage, column in pipeline:
             if column is None:
                 x_train = stage(x_train)
@@ -47,7 +46,6 @@ def run_training(
                     x_train, y_train = stage(x_train, column, target=y_train)
                 else:
                     x_train = stage(x_train, column)
-
         default_hyperparameters = read_json_as_dict(default_hyperparameters_file_path)
 
         target_encoder = get_target_encoder(data_schema)
