@@ -1,4 +1,3 @@
-import os
 import numpy as np
 import pandas as pd
 from typing import Any, Dict, Tuple
@@ -11,7 +10,7 @@ from config import paths
 from imblearn.over_sampling import SMOTE
 
 
-def impute_numeric(input_data: pd.DataFrame, column: Any, value='median', schema: BinaryClassificationSchema = None, target: pd.Series = None) -> pd.DataFrame:
+def impute_numeric(input_data: pd.DataFrame, column: Any, value='median') -> pd.DataFrame:
     if column not in input_data.columns:
         return input_data
     if value == 'mean':
@@ -93,10 +92,8 @@ def normalize(input_data: pd.DataFrame, schema: BinaryClassificationSchema, scal
     numeric_features = [f for f in numeric_features if f in input_data.columns]
     if scaler is None:
         scaler = MinMaxScaler()
-        # input_data[numeric_features] = scaler.fit_transform(input_data[numeric_features])
         scaler.fit(input_data[numeric_features])
         dump(scaler, paths.SCALER_FILE)
-    # else:
     input_data[numeric_features] = scaler.transform(input_data[numeric_features])
     return input_data
 

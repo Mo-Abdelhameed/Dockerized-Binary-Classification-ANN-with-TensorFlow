@@ -145,8 +145,11 @@ class Classifier:
 
         input_ = Input(self.D)
         x = input_
-        x = Dense(M1, activation=self.activation)(x)
-        x = Dense(M2, activation=self.activation)(x)
+        # x = Dense(M1, activation=self.activation)(x)
+        # x = Dense(M2, activation=self.activation)(x)
+        x = Dense(30, activation=self.activation)(x)
+        x = Dense(20, activation=self.activation)(x)
+        x = Dense(10, activation=self.activation)(x)
         x = Dense(1, activation="sigmoid")(x)
         output_ = x
         model = Model(input_, output_)
