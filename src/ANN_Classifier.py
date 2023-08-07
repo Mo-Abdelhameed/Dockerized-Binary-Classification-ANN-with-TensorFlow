@@ -22,6 +22,7 @@ MODEL_PARAMS_FNAME = "model_params.save"
 MODEL_WTS_FNAME = "model_wts.save"
 HISTORY_FNAME = "history.json"
 COST_THRESHOLD = float("inf")
+PREDICTOR_FILE_NAME = 'predictor.joblib'
 
 logger = get_logger(task_name="tf_model_training")
 
@@ -100,8 +101,6 @@ def validate_activation(activation: str) -> Union[str, None]:
     if activation in ["none", "None"]:
         activation = None
     return activation
-
-PREDICTOR_FILE_NAME = 'predictor.joblib'
 
 
 class Classifier:
