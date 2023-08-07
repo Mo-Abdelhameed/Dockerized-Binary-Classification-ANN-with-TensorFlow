@@ -96,7 +96,7 @@ def normalize(input_data: pd.DataFrame, schema: BinaryClassificationSchema, scal
         input_data[numeric_features] = scaler.fit_transform(input_data[numeric_features])
         dump(scaler, paths.SCALER_FILE)
     else:
-        input_data[numeric_features] = scaler.fit_transform(input_data[numeric_features])
+        input_data[numeric_features] = scaler.transform(input_data[numeric_features])
     return input_data
 
 
