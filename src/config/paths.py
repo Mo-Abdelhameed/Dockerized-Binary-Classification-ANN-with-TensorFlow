@@ -25,9 +25,9 @@ TEST_DIR = os.path.join(DATA_DIR, "testing")
 MODEL_PATH = os.path.join(MODEL_INPUTS_OUTPUTS, "model")
 # Path to artifacts directory inside model directory
 MODEL_ARTIFACTS_PATH = os.path.join(MODEL_PATH, "artifacts")
-
+# Path to the scaler object used during training
 SCALER_FILE = os.path.join(MODEL_ARTIFACTS_PATH, 'scaler.joblib')
-
+# Path to the encoder object used during training
 ENCODER_FILE = os.path.join(MODEL_ARTIFACTS_PATH, 'encoder.joblib')
 
 # Path to saved schema in artifacts directory
@@ -45,9 +45,6 @@ OUTPUT_DIR = os.path.join(MODEL_INPUTS_OUTPUTS, "outputs")
 PREDICTIONS_DIR = os.path.join(OUTPUT_DIR, "predictions")
 # Name of the file containing the predictions
 PREDICTIONS_FILE_PATH = os.path.join(PREDICTIONS_DIR, "predictions.csv")
-
-# Path to HPT results directory inside outputs directory
-HPT_OUTPUTS_DIR = os.path.join(OUTPUT_DIR, "hpt_outputs")
 
 # Path to logs directory inside outputs directory
 ERRORS_DIR = os.path.join(OUTPUT_DIR, "errors")

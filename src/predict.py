@@ -5,7 +5,7 @@ from config import paths
 from utils import read_csv_in_directory, save_dataframe_as_csv
 from logger import get_logger
 from ANN_Classifier import Classifier, predict_with_model
-from preprocessing.pipeline import create_pipeline, run_testing_pipeline, cast_data
+from preprocessing.pipeline import create_pipeline, run_testing_pipeline
 from schema.data_schema import load_saved_schema
 
 
@@ -57,6 +57,16 @@ def create_predictions_dataframe(
 
 
 def run_batch_predictions() -> None:
+    """
+        Run batch predictions on test data, save the predicted probabilities to a CSV file.
+
+        This function reads test data from the specified directory,
+        loads the preprocessing pipeline and pre-trained predictor model,
+        transforms the test data using the pipeline,
+        makes predictions using the trained predictor model,
+        adds ids into the predictions dataframe,
+        and saves the predictions as a CSV file.
+        """
     test_data = read_csv_in_directory(paths.TEST_DIR)
     data_schema = load_saved_schema(paths.SAVED_SCHEMA_DIR_PATH)
     model = Classifier.load(paths.PREDICTOR_DIR_PATH)

@@ -12,10 +12,6 @@ RUN pip3 install --no-cache-dir -r /opt/requirements.txt
 COPY src ./opt/src
 COPY ./entry_point.sh /opt/
 RUN chmod +x /opt/entry_point.sh
-#COPY ./fix_line_endings.sh /opt/
-RUN #chmod +x /opt/fix_line_endings.sh
-#RUN /opt/fix_line_endings.sh "/opt/src"
-#RUN /opt/fix_line_endings.sh "/opt/entry_point.sh"
 # Set working directory
 WORKDIR /opt/src
 # set python variables and path

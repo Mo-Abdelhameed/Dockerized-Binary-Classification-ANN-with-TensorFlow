@@ -1,6 +1,8 @@
 import os
 from typing import List
 
+import pandas as pd
+
 from config import paths
 from schema.data_schema import BinaryClassificationSchema
 from preprocessing.preprocess import *
@@ -35,7 +37,18 @@ def create_pipeline(schema: BinaryClassificationSchema) -> List[Any]:
     return pipeline
 
 
-def run_testing_pipeline(data: pd.DataFrame, data_schema: BinaryClassificationSchema, pipeline: List):
+def run_testing_pipeline(data: pd.DataFrame, data_schema: BinaryClassificationSchema, pipeline: List) -> pd.DataFrame:
+    """
+        Transforms the data by passing it through every step of the given pipeline.
+
+        Args:
+            data (pd.DataFrame): The data to be processed
+            data_schema (BinaryClassificationSchema): The schema of the given data.
+            pipeline (List): A list of functions to be performed on the data.
+
+        Returns:
+            The transformed data
+    """
     for stage, column in pipeline:
         if column is None:
             data = stage(data)

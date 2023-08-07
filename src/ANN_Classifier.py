@@ -139,13 +139,8 @@ class Classifier:
 
         self.activation = validate_activation(self.activation)
         self.D = int(self.D)
-        M1 = max(100, int(self.D * 4))
-        M2 = max(30, int(self.D * 0.5))
-
         input_ = Input(self.D)
         x = input_
-        # x = Dense(M1, activation=self.activation)(x)
-        # x = Dense(M2, activation=self.activation)(x)
         x = Dense(30, activation=self.activation)(x)
         x = Dense(20, activation=self.activation)(x)
         x = Dense(10, activation=self.activation)(x)
