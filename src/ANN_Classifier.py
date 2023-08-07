@@ -152,7 +152,6 @@ class Classifier:
         x = Dense(1, activation="sigmoid")(x)
         output_ = x
         model = Model(input_, output_)
-        # model.summary()
         model.compile(
             loss=BinaryCrossentropy(),
             optimizer=Adam(learning_rate=self.lr),

@@ -8,7 +8,7 @@ from config import paths
 from data_models.data_validator import validate_data
 from logger import get_logger, log_error
 from predict import create_predictions_dataframe
-from ANN_Classifier import Classifier
+from ANN_Classifier import predict_with_model, load_predictor_model
 from schema.data_schema import load_saved_schema
 from utils import read_json_as_dict
 from joblib import load
@@ -28,7 +28,7 @@ class ModelResources:
     ):
         self.data_schema = load_saved_schema(saved_schema_dir_path)
         self.model_config = read_json_as_dict(model_config_file_path)
-        self.predictor_model = Classifier.load_predictor_model(predictor_dir_path)
+        self.predictor_model = load_predictor_model(predictor_dir_path)
 
 
 def get_model_resources(
@@ -106,18 +106,15 @@ def transform_req_data_and_make_predictions(
 
     logger.info("Transforming data sample(s)...")
 
-    # transformed_data, _ = transform_data(
-    #     model_resources.preprocessor, model_resources.target_encoder, validated_data
-    # )
     ids = data[model_resources.data_schema.id]
-    data = data[model_resources.predictor_model.model.feature_names_in_]
+    data = data[model_resources.data_schema.features]
     scaler = load(paths.SCALER_FILE)
     data = normalize(data, model_resources.data_schema, scaler)
     transformed_data = encode(data, model_resources.data_schema, encoder='predict')
 
     logger.info("Making predictions...")
-    predictions_arr = Classifier.predict_with_model(
-        model_resources.predictor_model.model, transformed_data, return_probs=True
+    predictions_arr = predict_with_model(
+        model_resources.predictor_model, transformed_data, return_probs=True
     )
     logger.info("Converting predictions array into dataframe...")
     predictions_df = create_predictions_dataframe(
