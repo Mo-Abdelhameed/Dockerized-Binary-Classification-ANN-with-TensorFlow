@@ -1,9 +1,8 @@
 import os
-from typing import List
+from typing import List, Any
 
 import pandas as pd
 
-from config import paths
 from schema.data_schema import BinaryClassificationSchema
 from preprocessing.preprocess import *
 
