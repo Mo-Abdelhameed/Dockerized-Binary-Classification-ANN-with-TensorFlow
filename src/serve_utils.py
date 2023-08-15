@@ -2,6 +2,7 @@
 This script contains utility functions/classes that are used in serve.py
 """
 import uuid
+import os
 import pandas as pd
 from typing import Any, Dict, Tuple
 from config import paths
@@ -108,8 +109,9 @@ def transform_req_data_and_make_predictions(
 
     ids = data[model_resources.data_schema.id]
     data = data[model_resources.data_schema.features]
-    scaler = load(paths.SCALER_FILE)
-    data = normalize(data, model_resources.data_schema, scaler)
+    if os.path.exists(paths.SCALER_FILE):
+        scaler = load(paths.SCALER_FILE)
+        data = normalize(data, model_resources.data_schema, scaler)
     transformed_data = encode(data, model_resources.data_schema, encoder='predict')
 
     logger.info("Making predictions...")
